@@ -1,0 +1,18 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.io.File" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%
+File uploadDir = new File(application.getRealPath("/"), "uploads");
+if (!uploadDir.exists()) uploadDir.mkdirs();
+File[] files = uploadDir.listFiles();
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+%>
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Document Library - SecureDocs</title><link rel="stylesheet" href="assets/style.css"></head>
+<body><div class="layout"><aside class="sidebar"><div class="brand"><div class="logo">SD</div><div><h2>SecureDocs</h2><p>Internal Document Portal</p></div></div><nav><a href="index.jsp">Dashboard</a><a href="upload.jsp">Upload Document</a><a class="active" href="files.jsp">Document Library</a><a href="status.jsp">Server Status</a></nav><div class="lab-badge">LAB ENVIRONMENT</div></aside><main class="main"><header class="topbar"><div><h1>Document Library</h1><p>Uploaded files stored in the lab portal</p></div><a class="btn primary" href="upload.jsp">Upload File</a></header><section class="panel"><table><thead><tr><th>File name</th><th>Size</th><th>Last modified</th><th>Open</th></tr></thead><tbody>
+<% if (files == null || files.length == 0) { %>
+<tr><td colspan="4" class="empty">No uploaded files yet.</td></tr>
+<% } else { for (File f : files) { if (!f.isFile()) continue; %>
+<tr><td><%= f.getName() %></td><td><%= f.length() %> bytes</td><td><%= sdf.format(f.lastModified()) %></td><td><a href="uploads/<%= f.getName() %>" target="_blank">Open</a></td></tr>
+<% }} %>
+</tbody></table></section></main></div></body></html>
