@@ -22,12 +22,31 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 <div class="lab-badge">LAB ENVIRONMENT</div>
 </aside>
 <main class="main">
-<header class="topbar"><div><h1>Document Library</h1><p>Uploaded files stored in the lab portal</p></div><a class="btn primary" href="upload.jsp">Upload File</a></header>
+<header class="topbar"><div><h1>Document Library</h1><p>Uploaded files stored in the lab portal</p></div>
+<div class="topbar-actions">
+<form action="delete-file.jsp" method="post" onsubmit="return confirm('Delete ALL uploaded files?');">
+<input type="hidden" name="action" value="delete-all">
+<button class="btn danger" type="submit">Delete All Files</button>
+</form>
+<a class="btn primary" href="upload.jsp">Upload File</a>
+</div>
+</header>
 <section class="panel">
 <table>
 <thead><tr><th>File name</th><th>Size</th><th>Last modified</th><th>Open</th><th>Delete</th></tr></thead>
 <tbody>
-<% if (files == null || files.length == 0) { %>
+<%
+boolean hasVisibleFiles = false;
+if (files != null) {
+    for (File checkFile : files) {
+        if (checkFile.isFile() && !".keep".equals(checkFile.getName())) {
+            hasVisibleFiles = true;
+            break;
+        }
+    }
+}
+%>
+<% if (!hasVisibleFiles) { %>
 <tr><td colspan="5" class="empty">No uploaded files yet.</td></tr>
 <% } else { for (File f : files) { if (!f.isFile() || ".keep".equals(f.getName())) continue; String name = f.getName(); %>
 <tr>
