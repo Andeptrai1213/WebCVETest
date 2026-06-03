@@ -1,1 +1,0 @@
-<% out.println("JSP_EXEC_OK"); out.println("User: " + System.getProperty("user.name")); %>
