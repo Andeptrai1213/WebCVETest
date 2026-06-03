@@ -20,7 +20,7 @@ application.log("User visited upload page");
 <input type="file" name="file" required>
 <button class="btn primary" type="submit">Upload Document</button>
 </form>
-<div class="notice">This feature stores files inside the webapp <code>/uploads</code> directory for lab testing.</div>
+<div class="notice">After upload, the file is saved in <code>/uploads</code>. You can delete it using the <b>Delete</b> button on the result page or in the Document Library.</div>
 </section>
 </main>
 </div>
